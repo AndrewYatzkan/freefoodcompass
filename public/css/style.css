@@ -1,0 +1,46 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+h1 {
+	margin-top: 0;
+}
+
+div.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+.target-info {
+	width: 260px;
+
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+}
+
+.target-info div {
+	text-transform: uppercase;
+	display: flex;
+	justify-content: space-between;
+}
+
+.info-div {
+	display: none;
+}
+
+#info {
+	white-space: nowrap;
+	overflow: auto;
+	margin-left: 1ch;
+}
+
+#tweet {
+	text-overflow: ellipsis;
+	overflow: auto;
+	margin-left: 1ch;
+}
