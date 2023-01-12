@@ -101,7 +101,7 @@ function assignTarget(name, time, coords, tweet_id='N/A', info='N/A') {
 
 function syncDOM() {
   let dist = 'N/A';
-  if (clientPos) {
+  if (clientPos && target?.latitude !== 0) {
     dist = distance(clientPos, target) * 3.28084;
     if (dist >= 5280) dist = `${(dist/5280).toPrecision(4)} mi`;
     else dist = `${Math.floor(dist)} ft`;
