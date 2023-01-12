@@ -7,8 +7,6 @@ const port = 3000;
 const { scrapeTweets } = require('./twitter');
 const Tweet = require('./models/Tweet');
 
-// app.use(express.json());
-
 // scrapeTweets();
 // setInterval(scrapeTweets, 20 * 60 * 1_000); // 20 mins
 

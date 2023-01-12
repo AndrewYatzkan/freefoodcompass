@@ -94,7 +94,7 @@ let target;
 let clientPos;
 assignTarget('Loading..', 'N/A', {latitude: 0, longitude: 0});
 
-function assignTarget(name, time, coords, tweet_id, info) {
+function assignTarget(name, time, coords, tweet_id='N/A', info='N/A') {
   target = {name, time, info, tweet_id, ...coords};
   syncDOM();
 }
@@ -112,6 +112,7 @@ function syncDOM() {
   document.querySelector('#distance').innerText = dist;
 
   let url = `https://twitter.com/UIUCFreeFood/status/${target.tweet_id}`;
+  document.querySelector('#tweet').style.display = target.tweet_id == 'N/A' ? 'none' : 'block';
   document.querySelector('#tweet').innerText = url
   document.querySelector('#tweet').href = url;
 
