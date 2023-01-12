@@ -29,7 +29,7 @@ div.container {
 	justify-content: space-between;
 }
 
-.info-div {
+.info-div, .tweet-div {
 	display: none;
 }
 
