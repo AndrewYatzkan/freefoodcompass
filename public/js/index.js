@@ -112,7 +112,7 @@ function syncDOM() {
   document.querySelector('#distance').innerText = dist;
 
   let url = `https://twitter.com/UIUCFreeFood/status/${target.tweet_id}`;
-  document.querySelector('#tweet').style.display = target.tweet_id == 'N/A' ? 'none' : 'block';
+  document.querySelector('.tweet-div').style.display = target.tweet_id == 'N/A' ? 'none' : 'block';
   document.querySelector('#tweet').innerText = url
   document.querySelector('#tweet').href = url;
 
