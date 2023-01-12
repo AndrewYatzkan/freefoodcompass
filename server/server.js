@@ -13,7 +13,7 @@ const Tweet = require('./models/Tweet');
 // setInterval(scrapeTweets, 20 * 60 * 1_000); // 20 mins
 
 
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/../public`));
 
 // gets events that haven't ended
 app.get('/events', async (req, res) => {
@@ -23,4 +23,4 @@ app.get('/events', async (req, res) => {
   res.send(events);
 });
 
-app.listen(3000, () => console.log(`listening on *:${port}`));
+app.listen(port, () => console.log(`listening on *:${port}`));
