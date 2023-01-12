@@ -23,8 +23,4 @@ app.get('/events', async (req, res) => {
   res.send(events);
 });
 
-app.get('/', (req, res) => {
-  res.sendFile('public/index.html', {root: `${__dirname}/..`});
-});
-
 app.listen(3000, () => console.log(`listening on *:${port}`));
