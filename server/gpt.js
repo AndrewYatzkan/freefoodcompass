@@ -142,6 +142,9 @@ If multiple dates, or a range of dates, are mentioned, use the soonest from the 
 <Sent> Sep 15, 2022 at 5:23 PM
 <Food_Info> {"food": "Unknown", "street_address": "Siebel Center for Design", "full_location": "Siebel Center for Design", "time_begin": "9/15/22 5:23 PM", "time_end": "9/15/22 6:00 PM"}
 
+<Tweet> Free PIZZA ARC bouldering wall NOW and candy
+<Sent> Dec 8, 2022 at 2:20 PM
+<Food_Info> {"food": "Pizza and candy", "street_address": "Activities and Recreation Center", "full_location": "ARC Bouldering Wall", "time_begin": "12/8/22 2:20 PM", "time_end": "12/8/22 3:00 PM"}
 `;
 
 function formatTwitterDate(ds) {
