@@ -8,11 +8,43 @@ h1 {
 	margin-top: 0;
 }
 
+a {
+	color: green;
+}
+
 div.container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
+}
+
+.message-container {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	z-index: 9999;
+	display: flex;
+}
+
+.message {
+	margin: auto auto;
+/*	width: 90%;*/
+	width: fit-content;
+	padding: 0 10px;
+	box-sizing: border-box;
+	height: 20%;
+	background: #222;
+	border: 5px solid #444;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 0.9rem;
 }
 
 .target-info {

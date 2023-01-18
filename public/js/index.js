@@ -1,5 +1,3 @@
-document.body.onclick = () => DeviceMotionEvent.requestPermission();
-
 async function init() {
   if (!window.DeviceOrientationEvent ||
       !DeviceMotionEvent.requestPermission ||
@@ -7,21 +5,22 @@ async function init() {
     // message: Unable to collect compass heading from your device. Check out @UIUCFreeFood instead! Your nearest free food: embedded tweet
     return;
   }
-  let perms = await permissionStatus();
+  let perms = await headingPermissionStatus();
   if (perms == 'auto-deny') { // need to restart browser to be prompted again after denying
     // message: fully restart browser and come back
-    return;
+    return headingPermsAutoDeny();
   }
   if (perms == 'not-prompted') {
     // message: popup explaining app and then ask for permission
-    // TODO: don't return, continue (if granted permission)
-    return;
+    return headingPermsNotPrompted();
   }
+
+  let hasGeolocationPerms = !!(await getGeolocation()); // will prompt user if they haven't already granted perms
+  if (!hasGeolocationPerms) return needsGeolocationPerms();
 
   // you have perms!
 
   setInterval(refreshTargetHeading, REFRESH_INTERVAL);
-  refreshTargetHeading();
 
   window.addEventListener('deviceorientation', async ({webkitCompassHeading}) => {
     let dir = (webkitCompassHeading - targetHeading + 360) % 360;
@@ -30,6 +29,7 @@ async function init() {
   });
 
   let req = await fetch('/compass/events');
+  // let req = await fetch('/events');
   let res = await req.json();
 
   // Sort:
@@ -59,6 +59,36 @@ async function init() {
 let targetHeading = 0;
 
 init();
+// headingPermsNotPrompted();
+/*** UI ***/
+function headingPermsNotPrompted() {
+  const message = document.querySelector('.message');
+  message.parentElement.style.display = 'flex';
+
+  message.innerHTML = `<span>Welcome to the free food compass :)</span>
+        <button class="enter">enter 🍔</button>
+        <div style="font-size: 0.5rem; display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+          <span>Created by a hungry student.</span>
+          <span>Powered by the one and only <a href="https://twitter.com/uiucfreefood">twitter.com/@UIUCFreeFood</a></span>
+        </div>`;
+
+  let enterBtn = document.querySelector('button.enter');
+  enterBtn.onclick = () => DeviceMotionEvent.requestPermission().then(location.reload.bind(location));
+}
+
+function headingPermsAutoDeny() {
+  const message = document.querySelector('.message');
+  message.parentElement.style.display = 'flex';
+
+  message.innerText = 'It looks like this site wasn\'t granted access to your phone\'s orientation.\n\nTry fully closing out of your browser then revisiting the site.';
+}
+
+function needsGeolocationPerms() {
+  const message = document.querySelector('.message');
+  message.parentElement.style.display = 'flex';
+
+  message.innerText = 'This site does not have access to your location.\n\nPlease go to your browser\'s settings to allow location access.';
+}
 
 /*** Updates ***/
 
@@ -66,11 +96,12 @@ const REFRESH_INTERVAL = 5_000;
 
 let target;
 let clientPos;
-assignTarget('Loading..', 'N/A', {latitude: 0, longitude: 0});
+// assignTarget('Loading..', 'N/A', {latitude: 0, longitude: 0});
 
 function assignTarget(name, time, coords, tweet_id='N/A', info='N/A') {
   target = {name, time, info, tweet_id, ...coords};
-  syncDOM();
+  // syncDOM();
+  refreshTargetHeading();
 }
 
 function syncDOM() {
@@ -96,6 +127,7 @@ function syncDOM() {
 
 async function refreshTargetHeading() {
   clientPos = await getGeolocation();
+  // if (!clientPos) return setTimeout(refreshTargetHeading, 500);
   targetHeading = bearing(clientPos, target);
   syncDOM();
 }
@@ -192,10 +224,17 @@ function distance(start, end) {
 }
 
 /*** Permissions ***/
-function permissionStatus() {
+function headingPermissionStatus() {
   return new Promise((resolve, reject) =>
     DeviceMotionEvent.requestPermission()
       .then(status => resolve(status == 'granted' ? status : 'auto-deny'))
       .catch(() => resolve('not-prompted'))
   );
+}
+
+async function geolocationPermissionStatus() {
+  // <denied|granted|prompt>
+  // prompt seems to sometimes mean granted on safari ios?
+  let status = await navigator.permissions.query({ name: 'geolocation' });
+  return status.state;
 }
