@@ -32,6 +32,8 @@ async function init() {
   // let req = await fetch('/events');
   let res = await req.json();
 
+  res = [];
+
   // Sort:
   // 1. Started. Tie-breaker, ends latest
   // 2. Not started. Tie-breaker, starts soonest
@@ -43,8 +45,7 @@ async function init() {
   // assignTarget('Champaign, IL', 'Time info', {latitude: 40.116421, longitude: -88.243385});
 
   if (res.length == 0) {
-    // no upcoming events..
-    return;
+    return noEvents();
   }
 
   let event;
@@ -59,8 +60,16 @@ async function init() {
 let targetHeading = 0;
 
 init();
-// headingPermsNotPrompted();
+
 /*** UI ***/
+function noEvents() {
+  const message = document.querySelector('.message');
+  message.parentElement.style.display = 'flex';
+
+  message.innerHTML = `<span>No ongoing events :(</span>
+  <span>Visit <a href="https://twitter.com/uiucfreefood">@UIUCFreeFood</a> to share an event or contact <a href="mailto:yatzkan3@illinois.edu">yatzkan3@illinois.edu</a> if this site isn't synced with the twitter.</span>`;
+}
+
 function headingPermsNotPrompted() {
   const message = document.querySelector('.message');
   message.parentElement.style.display = 'flex';
