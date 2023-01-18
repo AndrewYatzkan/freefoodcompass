@@ -3,7 +3,7 @@ async function init() {
       !DeviceMotionEvent.requestPermission ||
       !navigator?.geolocation) { // browser not supported
     // message: Unable to collect compass heading from your device. Check out @UIUCFreeFood instead! Your nearest free food: embedded tweet
-    return;
+    return notSupported();
   }
   let perms = await headingPermissionStatus();
   if (perms == 'auto-deny') { // need to restart browser to be prompted again after denying
@@ -62,6 +62,13 @@ let targetHeading = 0;
 init();
 
 /*** UI ***/
+function notSupported() {
+  const message = document.querySelector('.message');
+  message.parentElement.style.display = 'flex';
+
+  message.innerText = 'Not supported on this browser. Try using a phone.\n\nIf you\'re already on a phone, try a different browser.';
+}
+
 function noEvents() {
   const message = document.querySelector('.message');
   message.parentElement.style.display = 'flex';
