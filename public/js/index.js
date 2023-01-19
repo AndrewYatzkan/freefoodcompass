@@ -116,7 +116,7 @@ let target;
 let clientPos;
 // assignTarget('Loading..', 'N/A', {latitude: 0, longitude: 0});
 
-function assignTarget(name, time, coords, tweet_id='N/A', food='N/A', info='N/A') {
+function assignTarget(name, time, coords, tweet_id='N/A', food='Unknown', info='N/A') {
   target = {name, time, info, food, tweet_id, ...coords};
   // syncDOM();
   refreshTargetHeading();
@@ -142,7 +142,7 @@ function syncDOM() {
   document.querySelector('.info-div').style.display = target.info == 'N/A' ? 'none' : 'flex';
   document.querySelector('#info').innerText = target.info;
 
-  document.querySelector('.food-div').style.display = target.food == 'N/A' ? 'none' : 'flex';
+  document.querySelector('.food-div').style.display = target.food == 'Unknown' ? 'none' : 'flex';
   document.querySelector('#food').innerText = target.food;
 }
 
