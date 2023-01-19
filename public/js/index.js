@@ -48,7 +48,7 @@ async function init() {
 
   let event;
   if (started.length > 0) event = started.sort((a, b) => b.end_timestamp - a.end_timestamp)[0];
-  else event = started.sort((a, b) => a.start_timestamp - b.start_timestamp)[0];
+  else event = future.sort((a, b) => a.start_timestamp - b.start_timestamp)[0];
 
   let duration = moment.duration(now - event.end_timestamp);
   let timeInfo = `${started.length > 0 ? 'ends' : 'starts'} ${duration.humanize(true)}`;
