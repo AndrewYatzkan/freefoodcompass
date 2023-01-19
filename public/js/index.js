@@ -32,8 +32,6 @@ async function init() {
   // let req = await fetch('/events');
   let res = await req.json();
 
-  res = [];
-
   // Sort:
   // 1. Started. Tie-breaker, ends latest
   // 2. Not started. Tie-breaker, starts soonest
