@@ -46,11 +46,15 @@ async function init() {
     return noEvents();
   }
 
-  let event;
-  if (started.length > 0) event = started.sort((a, b) => b.end_timestamp - a.end_timestamp)[0];
-  else event = future.sort((a, b) => a.start_timestamp - b.start_timestamp)[0];
-
-  let duration = moment.duration(now - event.end_timestamp);
+  let event, duration;
+  if (started.length > 0) {
+    event = started.sort((a, b) => b.end_timestamp - a.end_timestamp)[0];
+    duration = moment.duration(event.end_timestamp - now);
+  } else {
+    event = future.sort((a, b) => a.start_timestamp - b.start_timestamp)[0];
+    duration = moment.duration(event.start_timestamp - now);
+  }
+  
   let timeInfo = `${started.length > 0 ? 'ends' : 'starts'} ${duration.humanize(true)}`;
   assignTarget(event.location, timeInfo, event.coordinates, event.id, event.note || 'N/A');
 }
