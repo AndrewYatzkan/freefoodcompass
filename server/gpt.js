@@ -145,6 +145,10 @@ If multiple dates, or a range of dates, are mentioned, use the soonest from the 
 <Tweet> Free PIZZA ARC bouldering wall NOW and candy
 <Sent> Dec 8, 2022 at 2:20 PM
 <Food_Info> {"food": "Pizza and candy", "street_address": "Activities and Recreation Center", "full_location": "ARC Bouldering Wall", "time_begin": "12/8/22 2:20 PM", "time_end": "12/8/22 3:00 PM"}
+
+<Tweet> Free FOOD in Basement CIF. In front of 0027. Starting in about 30 minutes.
+<Sent> Jan 19, 2023 at 3:49 PM
+<Food_Info> {"food": "Unknown", "street_address": "Campus Instructional Facility", "full_location": "CIF Basement in front of Room 0027", "time_begin": "1/19/23 4:19 PM", "time_end": "1/19/23 5:00 PM"}
 `;
 
 function formatTwitterDate(ds) {
