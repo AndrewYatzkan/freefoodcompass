@@ -48,7 +48,8 @@ div.container {
 }
 
 .target-info {
-	width: 260px;
+	min-width: 260px;
+	max-width: 300px;
 
 	display: flex;
 	flex-direction: column;
