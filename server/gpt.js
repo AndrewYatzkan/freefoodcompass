@@ -152,10 +152,11 @@ If multiple dates, or a range of dates, are mentioned, use the soonest from the 
 `;
 
 function formatTwitterDate(ds) {
-    let d = new Date(ds);
-    let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()];
-    let hour = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    return `${month} ${d.getDate()}, ${d.getFullYear()} at ${hour}`;
+  let ts = Date.parse(ds); // parse ISO string
+  let d = new Date(ts);
+  let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()];
+  let hour = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  return `${month} ${d.getDate()}, ${d.getFullYear()} at ${hour}`;
 }
 
 
