@@ -54,9 +54,9 @@ async function init() {
     event = future.sort((a, b) => a.start_timestamp - b.start_timestamp)[0];
     duration = moment.duration(event.start_timestamp - now);
   }
-  
+
   let timeInfo = `${started.length > 0 ? 'ends' : 'starts'} ${duration.humanize(true)}`;
-  assignTarget(event.location, timeInfo, event.coordinates, event.id, event.note || 'N/A');
+  assignTarget(event.location, timeInfo, event.coordinates, event.id, event.food || 'N/A', event.note || 'N/A');
 }
 
 let targetHeading = 0;
@@ -116,8 +116,8 @@ let target;
 let clientPos;
 // assignTarget('Loading..', 'N/A', {latitude: 0, longitude: 0});
 
-function assignTarget(name, time, coords, tweet_id='N/A', info='N/A') {
-  target = {name, time, info, tweet_id, ...coords};
+function assignTarget(name, time, coords, tweet_id='N/A', food='N/A', info='N/A') {
+  target = {name, time, info, food, tweet_id, ...coords};
   // syncDOM();
   refreshTargetHeading();
 }
@@ -141,6 +141,9 @@ function syncDOM() {
 
   document.querySelector('.info-div').style.display = target.info == 'N/A' ? 'none' : 'flex';
   document.querySelector('#info').innerText = target.info;
+
+  document.querySelector('.food-div').style.display = target.food == 'N/A' ? 'none' : 'flex';
+  document.querySelector('#food').innerText = target.food;
 }
 
 async function refreshTargetHeading() {
