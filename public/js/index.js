@@ -28,8 +28,8 @@ async function init() {
     // lerpTo(dir); // smooth
   });
 
-  let req = await fetch('/compass/events');
-  // let req = await fetch('/events');
+  // let req = await fetch('/compass/events');
+  let req = await fetch('/events');
   let res = await req.json();
 
   // Sort:
